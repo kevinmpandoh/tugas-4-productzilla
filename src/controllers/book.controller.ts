@@ -26,12 +26,19 @@ const bookController = {
   // Create a book
   createBook: async (req: Request, res: Response) => {
     try {
-      const { title, author, year, genre } = req.body;
+      const { title, code, author, year } = req.body;
+
+      // Validasi untuk mengecek apakah code sudah ada
+      const existingBook = await Book.findOne({ code });
+      if (existingBook) {
+        return res.status(400).json({ message: "Code already exists" });
+      }
+
       const book = new Book({
         title,
         author,
+        code,
         year,
-        genre,
       });
       await book.save();
       return res.status(201).json({
@@ -71,10 +78,17 @@ const bookController = {
   updateBook: async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { title, author, year, genre } = req.body;
+      const { title, author, code, year } = req.body;
+
+      // Validasi untuk mengecek apakah code sudah ada pada buku lain
+      const existingBook = await Book.findOne({ code, _id: { $ne: id } });
+      if (existingBook) {
+        return res.status(400).json({ message: "Code already exists" });
+      }
+
       const book = await Book.findByIdAndUpdate(
         id,
-        { title, author, year, genre },
+        { title, author, code, year },
         { new: true }
       );
       if (!book) {

@@ -3,7 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-
+import swaggerDocs from "./utils/swagger";
 const router = require("./routes");
 
 // Load environment variables
@@ -25,6 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/api", router);
+app.use("/", router);
+// Swagger Docs
+swaggerDocs(app);
 
 export default app;
