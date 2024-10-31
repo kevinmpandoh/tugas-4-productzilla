@@ -39,9 +39,12 @@ Pastikan Anda telah menginstal hal berikut:
 4. Isi variabel lingkungan di `.env` sesuai konfigurasi Anda, terutama `MONGO_URI` untuk koneksi ke MongoDB.
 
     ```
-    MONGO_URI=mongodb://localhost:27017/villaplace
-    PORT=3000
-    JWT_SECRET=your_jwt_secret_key
+    MONGO_URI=mongodb://localhost:27017/task-4
+    PORT=8000
+
+    USER_NAME=admin
+    PASSWORD=password
+    
     ```
 
 ## Jalankan Aplikasi
