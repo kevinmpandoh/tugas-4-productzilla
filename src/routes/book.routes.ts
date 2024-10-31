@@ -21,19 +21,35 @@ const {
  * @swagger
  * /books:
  *   get:
- *     summary: Get all books
+ *     summary: Mendapatkan daftar semua buku
  *     tags: [Books]
  *     responses:
  *       200:
- *         description: A list of books
+ *         description: Daftar buku berhasil diambil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Daftar buku berhasil diambil
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Book'
  */
+ 
 route.get("/", getBooks);
 
 /**
  * @swagger
  * /books:
  *   post:
- *     summary: Create a new book
+ *     summary: Menambahkan buku baru
  *     tags: [Books]
  *     security:
  *       - cookieAuth: []
@@ -45,50 +61,66 @@ route.get("/", getBooks);
  *             $ref: '#/components/schemas/Book'
  *     responses:
  *       201:
- *         description: Book created successfully
- *       400:
- *         description: Code already exists
+ *         description: Buku berhasil ditambahkan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Buku berhasil ditambahkan
+ *                 data:
+ *                   $ref: '#/components/schemas/Book'
  */
+
 route.post("/", authMiddleware, createBook);
 
 /**
  * @swagger
  * /books/{id}:
  *   get:
- *     summary: Get a book by ID
+ *     summary: Mendapatkan buku berdasarkan ID
  *     tags: [Books]
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: The ID of the book
  *         schema:
- *           type: string
+ *           type: integer
+ *         description: ID buku
  *     responses:
  *       200:
- *        description: A book object
- *        content:
- *         application/json:
- *          schema:
- *            type: object
- *         properties:
- *            status:
- *            type: string
- *            message:
- *              type: string
- *            data:
- *              $ref: '#/components/schemas/Book'
- *         example:
- *          status: success
- *          message: Book retrieved successfully
- *          data:
- *            title: "The Great Gatsby"
- *            code: "TGG"
- *            author: "F. Scott Fitzgerald"
- *            year: 1925
- *
+ *         description: Buku ditemukan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Buku berhasil ditemukan
+ *                 data:
+ *                   $ref: '#/components/schemas/Book'
  *       404:
- *         description: Book not found
+ *         description: Buku tidak ditemukan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: Buku tidak ditemukan
  */
 
 route.get("/:id", getBookById);
@@ -97,17 +129,17 @@ route.get("/:id", getBookById);
  * @swagger
  * /books/{id}:
  *   put:
- *     summary: Update a book by ID
+ *     summary: Memperbarui buku berdasarkan ID
  *     tags: [Books]
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: The ID of the book
  *         schema:
- *           type: string
+ *           type: integer
+ *         description: ID buku
  *     requestBody:
  *       required: true
  *       content:
@@ -116,36 +148,77 @@ route.get("/:id", getBookById);
  *             $ref: '#/components/schemas/Book'
  *     responses:
  *       200:
- *         description: Book updated successfully
+ *         description: Buku berhasil diperbarui
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Buku berhasil perbarui
  *       404:
- *         description: Book not found
- *       400:
- *         description: Code already exists
- */
-route.put("/:id", authMiddleware, updateBook);
+ *         description: Buku tidak ditemukan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: Buku tidak ditemukan
+ */;
+
+ route.put('/:id', authMiddleware, updateBook)
 
 /**
  * @swagger
  * /books/{id}:
  *   delete:
- *     summary: Delete a book by ID
+ *     summary: Menghapus buku berdasarkan ID
  *     tags: [Books]
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: The ID of the book
  *         schema:
- *           type: string
+ *           type: integer
+ *         description: ID buku
  *     responses:
  *       200:
- *         description: Book deleted successfully
+ *         description: Buku berhasil dihapus
+*         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Buku berhasil dihapus
  *       404:
- *         description: Book not found
- *
- *
+ *         description: Buku tidak ditemukan
+*         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: Buku tidak ditemukan
  */
 route.delete("/:id", authMiddleware, deleteBook);
 

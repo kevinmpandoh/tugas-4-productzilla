@@ -12,7 +12,7 @@ const bookController = {
       const books = await Book.find();
       return res.status(200).json({
         status: "success",
-        message: "Books retrieved successfully",
+        message: "Daftar buku berhasil diambil",
         data: books,
       });
     } catch (error: any) {
@@ -43,7 +43,7 @@ const bookController = {
       await book.save();
       return res.status(201).json({
         status: "success",
-        message: "Book created successfully",
+        message: "Buku berhasil ditambahkan",
         data: book,
       });
     } catch (error: any) {
@@ -60,12 +60,12 @@ const bookController = {
       if (!book) {
         return res.status(404).json({
           status: "error",
-          message: "Book not found",
+          message: "Buku tidak ditemukan",
         });
       }
       return res.status(200).json({
         status: "success",
-        message: "Book retrieved successfully",
+        message: "Buku berhasil ditemukan",
         data: book,
       });
     } catch (error: any) {
@@ -83,7 +83,7 @@ const bookController = {
       // Validasi untuk mengecek apakah code sudah ada pada buku lain
       const existingBook = await Book.findOne({ code, _id: { $ne: id } });
       if (existingBook) {
-        return res.status(400).json({ message: "Code already exists" });
+        return res.status(400).json({ message: "Kode buku sudah terdaftar" });
       }
 
       const book = await Book.findByIdAndUpdate(
@@ -94,12 +94,12 @@ const bookController = {
       if (!book) {
         return res.status(404).json({
           status: "error",
-          message: "Book not found",
+          message: "Buku tidak ditemukan",
         });
       }
       return res.status(200).json({
         status: "success",
-        message: "Book updated successfully",
+        message: "Buku berhasil perbarui",
         data: book,
       });
     } catch (error: any) {
@@ -117,13 +117,13 @@ const bookController = {
       if (!book) {
         return res.status(404).json({
           status: "error",
-          message: "Book not found",
+          message: "Buku tidak ditemukan",
         });
       }
 
       return res.status(200).json({
         status: "success",
-        message: "Book deleted successfully",
+        message: "buku berhasil dihapus",
       });
     } catch (error: any) {
       return res.status(500).json({

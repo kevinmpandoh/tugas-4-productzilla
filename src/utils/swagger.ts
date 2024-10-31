@@ -32,18 +32,22 @@ const options = {
             title: {
               type: "string",
               description: "The title of the book",
+              example: "Naruto"
             },
             code: {
               type: "string",
               description: "The code of the book",
+              example: "123"
             },
             author: {
               type: "string",
               description: "The author of the book",
+              example: "Masashi Kishimoto"
             },
             year: {
               type: "number",
               description: "The year the book was published",
+              example: 2001
             },
           },
         },

@@ -2,6 +2,13 @@
 
 Restfull API Book yang dibangun menggunakan **Express.js**, **TypeScript**, dan **MongoDB** dengan **Mongoose** sebagai ODM.
 
+## Screenshot Hasil Tugas
+![Screenshot tugas](screenshots/image.png)
+![Screenshot tugas](screenshots/image2.png)
+
+username = admin
+password = password
+
 ## Prasyarat
 
 Pastikan Anda telah menginstal hal berikut:

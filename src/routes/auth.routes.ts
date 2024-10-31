@@ -17,14 +17,38 @@ const route = express.Router();
  *             type: object
  *             properties:
  *               username:
- *                 type: string
+ *                  type: string
+ *                  example: admin
  *               password:
- *                 type: string
+ *                  type: string
+ *                  example: password
  *     responses:
  *       200:
- *         description: User logged in successfully
- *       400:
- *         description: Invalid username or password
+ *         description: User berhasil login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: login berhasil
+ *       401:
+ *         description: Username atau password salah
+ *         content:
+ *           application/json:
+ *              schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: Username atau password salah   
  */
 // Login endpoint
 route.post("/login", login);
@@ -35,9 +59,22 @@ route.post("/login", login);
  *   post:
  *     summary: User logout
  *     tags: [Auth]
+ *     security:
+ *       - cookieAuth: []
  *     responses:
  *       200:
  *         description: User logged out successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Logout berhasil
  */
 
 // Logout endpoint
